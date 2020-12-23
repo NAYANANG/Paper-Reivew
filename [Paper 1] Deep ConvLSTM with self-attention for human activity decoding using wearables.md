@@ -1,6 +1,7 @@
 # Deep ConvLSTM with self-attention for human activity decoding using wearables
 
 <br/></br>
+## **3. 실험 설정**
 ### **1. 데이터 세트 설명**
 1. MHEACH  
   - 12명 피험자의 왼쪽 발목과 가슴, 오른쪽 손목에 배치된 센서로부터 신체 신호와 활력징후(회전율, 가속, 자기장 방향)가 기록
@@ -45,3 +46,23 @@
 3. F1-score
   - accuracy와 recall의 가중 평균
   - 데이터가 불균형한 경우에 사용
+  
+<br/></br>
+## **4. 결과**
+- 모든 실험은 NVIDIA P100 GPU에서 Tensorflow Keras를 사용하여 python에서 구현
+- 더 나은 매개변수를 선택하기 위하여 1)하이퍼 파라미터를 조정   2)LOTO에서 생성된 샘플에 대해 5-교차검증 수행
+- 변경사항  
+    CNN layer 필터수 : {1,2,3,6,12}로 변경  
+    LSTM layer 유닛수 : {8,16,32,64} -> {6,16,32,64}로 변경  
+    Attention layer 출력길이 : {6,8,8,10,12,14}로 변경  
+    학습속도 : {1,e-1,12,12,12}로 변경  
+- 결과의 편향을 피하기 위하여 SNOW/FNOW 데이터셋에서 수행된 실험에 10-교차검증 수행
+- CNN 필터 수 : 3, LSTM 유닛 수 : 32, LSTM 레이어 수 : 1, attentino 길이 : 32, attention layer 출력길이 : 10, batch size : 32, 학습속도 : 1e-4로 설정 (MHEACH의 경우, CNN 필터 수 : 6으로 설정)
+- CNN필터 크기는 관련 데이터의 일시적인 창의 크기와 동일하게 설정
+- validation loss를 모니터링
+
+### **1. 검체 생성의 효과**
+
+### **2. 기준과 비교**
+
+### **3. 기존 작업과의 비교분석**
